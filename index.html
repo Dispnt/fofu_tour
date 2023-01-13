@@ -5,9 +5,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Itim:400,700&display=swap" rel="stylesheet">
+    <script src="./fullpage/fullpage.js"></script>
+    <link href="./fullpage/fullpage.css" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css?family=Itim:400,700&display=swap" rel="stylesheet">
     <link href="./tailwind.css" rel="stylesheet">
 
+    
     <style>
         .date {
             text-stroke: 1px #000000;
@@ -21,17 +24,6 @@
             color: rgba(0, 0, 0, var(--tw-text-opacity));
         }
 
-        .scroll {
-            -ms-overflow-style: none;
-            /* Internet Explorer 10+ */
-            scrollbar-width: none;
-            /* Firefox */
-        }
-
-        .scroll::-webkit-scrollbar {
-            display: none;
-            /* Safari and Chrome */
-        }
     </style>
     <script>
 
@@ -46,31 +38,32 @@
         var scroll_percentage = 0
         $(function () {
 
-            var dateScrollElement = document.getElementById("date-container");
-            var imgScrollElement = document.getElementById("img-container");
+            
+            // var dateScrollElement = document.getElementById("date-container");
+            // var imgScrollElement = document.getElementById("img-container");
 
-            $("#img-container").scroll(function () {
+            // $("#img-container").scroll(function () {
 
-                // if ($("#img-container").is(':hover')) {
-                img_scroll_percentage = getElementScrollScale(this);
-                setElementScrollScale(dateScrollElement, img_scroll_percentage);
-                // }
-
-
-            });
+            //     // if ($("#img-container").is(':hover')) {
+            //     img_scroll_percentage = getElementScrollScale(this);
+            //     setElementScrollScale(dateScrollElement, img_scroll_percentage);
+            //     // }
 
 
-
-            $("#date-container").scroll(function () {
-
-                // if ($("#date-container").is(':hover')) {
-                date_scroll_percentage = getElementScrollScale(this);
-
-                setElementScrollScale(imgScrollElement, date_scroll_percentage);
-                // }
+            // });
 
 
-            });
+
+            // $("#date-container").scroll(function () {
+
+            //     // if ($("#date-container").is(':hover')) {
+            //     date_scroll_percentage = getElementScrollScale(this);
+
+            //     setElementScrollScale(imgScrollElement, date_scroll_percentage);
+            //     // }
+
+
+            // });
 
         });
 
@@ -89,33 +82,42 @@
        
         <div class="w-full flex pl-6 ">
 
-            <div class="bg-gray-50 text-3xl text-black font-eventname fixed py-8 pr-6 pl-3">
+            <div class="bg-gray-50 text-3xl text-black font-eventname fixed py-8 pr-6 pl-3 z-40">
                 <a class="items-center justify-center" >Fofu's Sight</a>
                 </p>
             </div>
 
-            <div id="img-container" class="scroll space-y-12 w-full overflow-auto ">
+            <div id="img-container" class="space-y-12 w-full  ">
 
-                <div class="h-screen shadow bg-cover bg-center" style="background-image: url('./img3.jpg')">
+                <div class="h-screen bg-cover bg-center section bg-1 active" >
                     
                 </div>
 
-                <div class="h-screen shadow bg-cover bg-center" style="background-image: url('./img1.jpg')">
-                    <div class=""></div>
+                <div class="h-screen bg-cover bg-center section bg-2" >
+                    <!-- <div class=""></div> -->
                 </div>
 
-                <div class="h-screen shadow bg-cover bg-center" style="background-image: url('./img4.jpg')">
-                    <div class=""></div>
+                <div class="h-screen bg-cover bg-center section bg-3" >
+                    <!-- <div class=""></div> -->
                 </div>
-                <div class="h-screen shadow bg-cover bg-center" style="background-image: url('./img5.jpg')">
-                    <div class=""></div>
+
+                <div class="h-screen bg-cover bg-center section" style="background-image: url('./img/img4.jpg')">
+                    <!-- <div class=""></div> -->
                 </div>
-                <div class="h-screen shadow bg-cover bg-center" style="background-image: url('./img6.jpg')">
-                    <div class=""></div>
+                <div class="h-screen bg-cover bg-center section" style="background-image: url('./img/img5.jpg')">
+                    <!-- <div class=""></div> -->
+                </div>
+                <div class="h-screen bg-cover bg-center section" style="background-image: url('./img/img6.jpg')">
+                    <!-- <div class=""></div> -->
                 </div>
             </div>
         </div>
     </div>
+
+
+    <script type="text/javascript">
+        var myFullpage = new fullpage('#img-container', {});
+    </script>
 </body>
 
 </html>

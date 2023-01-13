@@ -12,6 +12,11 @@ module.exports = {
       height:{
       '100':'30rem',
     },
+    backgroundImage: {
+      '1': "url('./img/img1.jpg')",
+      '2': "url('./img/img2.jpg')",
+      '3': "url('./img/img3.jpg')",
+     },
   },
   },
   plugins: [],
