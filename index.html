@@ -7,10 +7,10 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.2/dist/jquery.min.js"></script>
     <script src="./fullpage/fullpage.js"></script>
     <link href="./fullpage/fullpage.css" rel="stylesheet">
-     <link href="https://fonts.googleapis.com/css?family=Itim:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Itim:400,700&display=swap" rel="stylesheet">
     <link href="./tailwind.css" rel="stylesheet">
 
-    
+
     <style>
         .date {
             text-stroke: 1px #000000;
@@ -24,8 +24,19 @@
             color: rgba(0, 0, 0, var(--tw-text-opacity));
         }
 
+        #date-list {
+            background-image: repeating-linear-gradient(90deg, rgb(0, 0, 0) 0, rgb(0, 0, 0) 2px, transparent 0, transparent .3cm);
+            background-position: .3cm 0;
+            background-repeat: no-repeat;
+            width: max-content;
+            background-size: 100% 30px;
+            background-position: .3cm 100%;
+  
+        }
+
     </style>
     <script>
+
 
 
 
@@ -38,32 +49,33 @@
         var scroll_percentage = 0
         $(function () {
 
+
+            var total_img = $('#img-container').children(".section").length;
+            var scale = 1 / total_img;
+            var scale_lst = []
             
-            // var dateScrollElement = document.getElementById("date-container");
-            // var imgScrollElement = document.getElementById("img-container");
+            $(".section").each(function (index) {
+                let tmp = (++index) * scale
+                tmp = tmp.toFixed(2)
+                $(this).attr("scale", tmp)
+                scale_lst.push(tmp)
 
-            // $("#img-container").scroll(function () {
+            });
+            console.log(scale_lst)
 
-            //     // if ($("#img-container").is(':hover')) {
-            //     img_scroll_percentage = getElementScrollScale(this);
-            //     setElementScrollScale(dateScrollElement, img_scroll_percentage);
-            //     // }
-
-
-            // });
+            $("#date-container").scroll(function () {
 
 
+                let current_date_percent = $("#date-container").scrollLeft() / ($("#date-container").get(0).scrollWidth - $("#date-container").width()); //date dial percentage
+                current_date_percent = current_date_percent.toFixed(2); 
+                let findImg = (e) => e>current_date_percent 
+                let scroll_img = scale_lst.findIndex(findImg)
+                scroll_img = scroll_img + 1;
+                if(scroll_img==0){scroll_img=total_img}
+                fullpage_api.moveTo(scroll_img);
+            });
 
-            // $("#date-container").scroll(function () {
 
-            //     // if ($("#date-container").is(':hover')) {
-            //     date_scroll_percentage = getElementScrollScale(this);
-
-            //     setElementScrollScale(imgScrollElement, date_scroll_percentage);
-            //     // }
-
-
-            // });
 
         });
 
@@ -74,30 +86,58 @@
 
 <body class="no-scrollbar overflow-y-auto bg-gray-50 ">
 
-    <div class="flex space-x-12"> <!-- pt-6 mt-2-->
+    <div class="flex "> <!-- pt-6 mt-2-->
 
-        <div class="w-1/4 text-3xl font-thin flex space-y-12 items-center justify-center">
+        <div class="w-1/4 text-3xl font-thin flex space-y-12  ">
+
+
+            <div id="date-container"
+                class="mt-6 ml-8 overflow-x-auto overflow-y-hidden h-12 items-center ring-2 ring-purple-600 ring-offset-2 ring-offset-purple-100 ring-opacity-50 rounded-md ">
+                <div class="flex" id="date-list">
+                    <div>
+                        <p class="date text-3xl text-transparent font-black px-24">11.08</p>
+                    </div>
+                    <div>
+                        <p class="date text-3xl text-transparent font-black px-24">11.10</p>
+                    </div>
+                    <div>
+                        <p class="date text-3xl text-transparent font-black px-24">12.01</p>
+                    </div>
+                    <div>
+                        <p class="date text-3xl text-transparent font-black px-24">11.08</p>
+                    </div>
+                    <div>
+                        <p class="date text-3xl text-transparent font-black px-24">11.10</p>
+                    </div>
+                    <div>
+                        <p class="date text-3xl text-transparent font-black px-24">12.01</p>
+                    </div> 
+                </div>
+                
+                
+            </div>
+
         </div>
 
-       
+
         <div class="w-full flex pl-6 ">
 
             <div class="bg-gray-50 text-3xl text-black font-eventname fixed py-8 pr-6 pl-3 z-40">
-                <a class="items-center justify-center" >Fofu's Sight</a>
+                <a class="items-center justify-center">Fofu's Sight</a>
                 </p>
             </div>
 
-            <div id="img-container" class="space-y-12 w-full  ">
+            <div id="img-container" class="space-y-12 w-full ">
 
-                <div class="h-screen bg-cover bg-center section bg-1 active" >
-                    
+                <div class="h-screen bg-cover bg-center section bg-1 active">
+
                 </div>
 
-                <div class="h-screen bg-cover bg-center section bg-2" >
+                <div class="h-screen bg-cover bg-center section bg-2">
                     <!-- <div class=""></div> -->
                 </div>
 
-                <div class="h-screen bg-cover bg-center section bg-3" >
+                <div class="h-screen bg-cover bg-center section bg-3">
                     <!-- <div class=""></div> -->
                 </div>
 
