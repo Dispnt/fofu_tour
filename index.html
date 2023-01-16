@@ -48,35 +48,26 @@
         }
         var scroll_percentage = 0
         $(function () {
+            var total_img = $('#img-container').children(".section").length; //图片集合总长度：三张图片90px
+            var scale = 1 / total_img; //每一张图片所占百分比：三张图片一张0.3
+            var scale_lst = [] //每一段图片所处总位置的百分比array
 
-
-            var total_img = $('#img-container').children(".section").length;
-            var scale = 1 / total_img;
-            var scale_lst = []
-            
-            $(".section").each(function (index) {
-                let tmp = (++index) * scale
+            $(".section").each(function (index) { //计算每段图片总位置百分比：[.0,.3,.6]
+                let tmp = (++index) * scale //图片下标*每张图片百分比
                 tmp = tmp.toFixed(2)
                 $(this).attr("scale", tmp)
                 scale_lst.push(tmp)
-
             });
-            console.log(scale_lst)
 
             $("#date-container").scroll(function () {
-
-
-                let current_date_percent = $("#date-container").scrollLeft() / ($("#date-container").get(0).scrollWidth - $("#date-container").width()); //date dial percentage
-                current_date_percent = current_date_percent.toFixed(2); 
-                let findImg = (e) => e>current_date_percent 
-                let scroll_img = scale_lst.findIndex(findImg)
-                scroll_img = scroll_img + 1;
-                if(scroll_img==0){scroll_img=total_img}
+                let current_date_percent = $("#date-container").scrollLeft() / ($("#date-container").get(0).scrollWidth - $("#date-container").width()); //日期拨盘百分比
+                current_date_percent = current_date_percent.toFixed(2);  
+                let findImg = (e) => e>=current_date_percent 
+                let scroll_img = scale_lst.findIndex(findImg) //找到大于日期百分比的第一个图片百分比array所属下标
+                scroll_img = scroll_img + 1; //翻到第{scroll_img}张图片
+                if(scroll_img==0){scroll_img=total_img} //-1是最后一张
                 fullpage_api.moveTo(scroll_img);
             });
-
-
-
         });
 
 
@@ -88,9 +79,7 @@
 
     <div class="flex "> <!-- pt-6 mt-2-->
 
-        <div class="w-1/4 text-3xl font-thin flex space-y-12  ">
-
-
+        <div class="w-1/4 text-3xl font-thin flex space-y-12">
             <div id="date-container"
                 class="mt-6 ml-8 overflow-x-auto overflow-y-hidden h-12 items-center ring-2 ring-purple-600 ring-offset-2 ring-offset-purple-100 ring-opacity-50 rounded-md ">
                 <div class="flex" id="date-list">
